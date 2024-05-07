@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="OrderAgg\Events\" />
+    <Folder Include="ProductAgg\Services\" />
     <Folder Include="UserAgg\Enums\" />
     <Folder Include="UserAgg\Services\" />
   </ItemGroup>
