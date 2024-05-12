@@ -12,12 +12,12 @@ namespace Shop.Domain.CommentAgg
         public string TextComment { get; private set; }
         public DateTime UpdateDate { get; private set; }
 
-        public Comment(long userId, long productId, CommentStatus status, string textComment)
+        public Comment(long userId, long productId, string textComment)
         {
             NullOrEmptyDomainDataException.CheckString(textComment, nameof(textComment));
             UserId = userId;
             ProductId = productId;
-            Status = status;
+
             TextComment = textComment;
 
         }
