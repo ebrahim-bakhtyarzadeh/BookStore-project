@@ -4,11 +4,11 @@ namespace Shop.Domain.OrderAgg;
 
 public class OrderItem : BaseEntity
 {
-    public OrderItem(long orderId, long inventoryId, int count, int price)
+    public OrderItem(long inventoryId, int count, int price)
     {
         PriceGuard(price);
         CountGuard(count);
-        OrderId = orderId;
+        OrderId = Id;
         InventoryId = inventoryId;
         Count = count;
         Price = price;
@@ -19,6 +19,25 @@ public class OrderItem : BaseEntity
     public int Price { get; private set; }
     public int TotalPrice => Price * Count;
 
+
+    public void IncreaseCount(int count)
+    {
+        Count += count;
+    }
+
+    public void DecreaseCount(int count)
+    {
+        if (Count == 1)
+            return;
+
+
+        if (Count <= 0)
+            return;
+
+
+
+        Count -= count;
+    }
     public void ChangeCount(int newCount)
     {
         CountGuard(newCount);

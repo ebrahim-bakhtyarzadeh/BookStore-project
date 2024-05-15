@@ -46,13 +46,38 @@ namespace Shop.Domain.OrderAgg
         public int ItemCount => Items.Count;
 
 
+        public void IncreaseItemCount(long itemId, int count)
+        {
+            ChangeOrderGuard();
+            var currentItem = Items.FirstOrDefault(f => f.Id == itemId);
+            if (currentItem == null)
+                throw new NullOrEmptyDomainDataException();
+            currentItem.IncreaseCount(count);
+        }
 
+        public void DecreaseItemCount(long itemId, int count)
+        {
+            ChangeOrderGuard();
+            var currentItem = Items.FirstOrDefault(f => f.Id == itemId);
+            if (currentItem == null)
+                throw new NullOrEmptyDomainDataException();
+            currentItem.DecreaseCount(count);
+        }
         public void AddItem(OrderItem item)
         {
+
+            ChangeOrderGuard();
+            var oldItem = Items.FirstOrDefault(i => i.InventoryId == item.InventoryId);
+            if (oldItem != null)
+            {
+                oldItem.ChangeCount(item.Count + oldItem.Count);
+                return;
+            }
             Items.Add(item);
         }
         public void RemoveItem(long itemId)
         {
+            ChangeOrderGuard();
             var currentItem = Items.FirstOrDefault(i => i.Id == itemId);
             if (currentItem != null)
                 Items.Remove(currentItem);
@@ -60,8 +85,9 @@ namespace Shop.Domain.OrderAgg
 
         public void ChangeCountItem(long itemId, int newCount)
         {
+            ChangeOrderGuard();
             var currentItem = Items.FirstOrDefault(i => i.Id == itemId);
-            if (currentItem != null)
+            if (currentItem == null)
                 throw new NullOrEmptyDomainDataException();
 
             currentItem.ChangeCount(newCount);
@@ -75,7 +101,16 @@ namespace Shop.Domain.OrderAgg
 
         public void Checkout(OrderAddress orderAddress)
         {
+            ChangeOrderGuard();
             Address = orderAddress;
+        }
+
+        public void ChangeOrderGuard()
+        {
+            if (Status != OrderStatus.Pennding)
+            {
+                throw new InvalidDomainDataException("It is not possible to edit this product");
+            }
         }
     }
 

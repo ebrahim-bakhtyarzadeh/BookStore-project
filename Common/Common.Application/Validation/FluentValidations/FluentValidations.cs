@@ -8,7 +8,9 @@ namespace Common.Application.Validation.FluentValidations
 {
     public static class FluentValidations
     {
-        public static IRuleBuilderOptionsConditions<T, TProperty> JustImageFile<T, TProperty>(this IRuleBuilder<T, TProperty> ruleBuilder, string errorMessage = "شما فقط قادر به وارد کردن عکس میباشید") where TProperty : IFormFile?
+        public static IRuleBuilderOptionsConditions<T, TProperty> JustImageFile<T, TProperty>(
+            this IRuleBuilder<T, TProperty> ruleBuilder, string errorMessage = "شما فقط قادر به وارد کردن عکس میباشید")
+            where TProperty : IFormFile?
         {
             return ruleBuilder.Custom((file, context) =>
             {
@@ -20,6 +22,19 @@ namespace Common.Application.Validation.FluentValidations
                     context.AddFailure(errorMessage);
                 }
             });
+        }
+
+        public static IRuleBuilderOptionsConditions<T, string> ValidNationalCode<T, TProperty>(
+            this IRuleBuilder<T, string> ruleBuilder, string errorMessage = "The national code is not valid")
+        {
+            return ruleBuilder.Custom((nationalCode, context) =>
+            {
+                if (IranianNationalIdChecker.IsValid(nationalCode) == false)
+                {
+
+                }
+            });
+
         }
 
         public static IRuleBuilderOptionsConditions<T, string> ValidNationalId<T>(this IRuleBuilder<T, string> ruleBuilder, string errorMessage = "کدملی نامعتبر است")
@@ -34,8 +49,8 @@ namespace Common.Application.Validation.FluentValidations
         {
             return ruleBuilder.Custom((phoneNumber, context) =>
             {
-               if(string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length is < 11 or > 11)
-                   context.AddFailure(errorMessage);
+                if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length is < 11 or > 11)
+                    context.AddFailure(errorMessage);
 
             });
         }
