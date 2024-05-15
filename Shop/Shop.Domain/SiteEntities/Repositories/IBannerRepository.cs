@@ -2,7 +2,7 @@
 
 namespace Shop.Domain.SiteEntities.Repositories
 {
-    internal interface IBannerRepository : IBaseRepository<Banner>
+    public interface IBannerRepository : IBaseRepository<Banner>
     {
     }
 }
