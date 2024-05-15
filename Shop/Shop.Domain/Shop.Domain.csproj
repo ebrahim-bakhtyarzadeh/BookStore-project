@@ -13,6 +13,7 @@
     <Folder Include="OrderAgg\Repository\" />
     <Folder Include="ProductAgg\Repository\" />
     <Folder Include="ProductAgg\Services\" />
+    <Folder Include="SellerAgg\Services\" />
     <Folder Include="UserAgg\Enums\" />
     <Folder Include="UserAgg\Repository\" />
     <Folder Include="UserAgg\Services\" />
