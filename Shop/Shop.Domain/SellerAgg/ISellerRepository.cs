@@ -4,7 +4,7 @@ namespace Shop.Domain.SellerAgg;
 
 public interface ISellerRepository : IBaseRepository<Seller>
 {
-    public Task<InventoryResult> GetInventoryById(long id);
+    public Task<InventoryResult?> GetInventoryById(long id);
 }
 
 public class InventoryResult()

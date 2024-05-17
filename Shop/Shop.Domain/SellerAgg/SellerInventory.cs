@@ -5,7 +5,7 @@ namespace Shop.Domain.SellerAgg;
 
 public class SellerInventory : BaseEntity
 {
-
+    public long SellerId { get; private set; }
     public long ProductId { get; private set; }
     public int Count { get; private set; }
     public int Price { get; private set; }
