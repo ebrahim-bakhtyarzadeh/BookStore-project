@@ -1,13 +1,14 @@
 ﻿using Common.Domain;
 using Common.Domain.Exceptions;
+using Common.Domain.ValueObjects;
 
 namespace Shop.Domain.UserAgg;
 
 public class UserAddress : BaseEntity
 {
-    public UserAddress(string firstName, string lastName, string shire, string city, string postalCode, string postalAddress, string phoneNumber, string nationalCode)
+    public UserAddress(string firstName, string lastName, string shire, string city, string postalCode, string postalAddress, PhoneNumber phoneNumber, string nationalCode)
     {
-        Guard(firstName, lastName, shire, city, postalCode, postalAddress, phoneNumber, nationalCode);
+        Guard(firstName, lastName, shire, city, postalCode, postalAddress, phoneNumber.Value, nationalCode);
 
         FirstName = firstName;
         LastName = lastName;
@@ -27,14 +28,14 @@ public class UserAddress : BaseEntity
     public string City { get; private set; }
     public string PostalCode { get; private set; }
     public string PostalAddress { get; private set; }
-    public string PhoneNumber { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; }
     public string NationalCode { get; private set; }
     public bool ActiveAddress { get; private set; }
 
 
-    public void Edit(string firstName, string lastName, string shire, string city, string postalCode, string postalAddress, string phoneNumber, string nationalCode)
+    public void Edit(string firstName, string lastName, string shire, string city, string postalCode, string postalAddress, PhoneNumber phoneNumber, string nationalCode)
     {
-        Guard(firstName, lastName, shire, city, postalCode, postalAddress, phoneNumber, nationalCode);
+        Guard(firstName, lastName, shire, city, postalCode, postalAddress, phoneNumber.Value, nationalCode);
         FirstName = firstName;
         LastName = lastName;
         Shire = shire;

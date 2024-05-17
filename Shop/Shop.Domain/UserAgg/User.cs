@@ -7,9 +7,9 @@ namespace Shop.Domain.UserAgg
 {
     public class User : AggregateRoot
     {
-        public User(string firstName, string lastName, string phoneNumber, string email, string password, Gender gender, IDomainUserService domainUserService)
+        public User(string firstName, string lastName, string phoneNumber, string email, string password, Gender gender, IUserDomainService userDomainService)
         {
-            Guard(phoneNumber, email, domainUserService);
+            Guard(phoneNumber, email, userDomainService);
 
             FirstName = firstName;
             LastName = lastName;
@@ -25,25 +25,26 @@ namespace Shop.Domain.UserAgg
         public string Email { get; private set; }
         public string Password { get; private set; }
         public Gender Gender { get; private set; }
-
+        public string AvatarName { get; private set; }
         public List<UserRole> Roles { get; private set; }
         public List<UserAddress> Addresses { get; private set; }
         public List<Wallet> Wallets { get; private set; }
 
-        public void Edit(string firstName, string lastName, string phoneNumber, string email, string password, Gender gender, IDomainUserService domainUserService)
+        public void Edit(string firstName, string lastName, string phoneNumber, string email, string password, Gender gender, IUserDomainService userDomainService)
         {
-            Guard(phoneNumber, email, domainUserService);
+            Guard(phoneNumber, email, userDomainService);
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
             Email = email;
             Password = password;
             Gender = gender;
+            AvatarName = "avatar.png";
         }
 
-        public static User RegisterUser(string email, string phoneNumber, string password, IDomainUserService domainUserService)
+        public static User RegisterUser(string phoneNumber, string password, IUserDomainService userDomainService)
         {
-            return new User("", "", phoneNumber, email, password, Gender.None, domainUserService);
+            return new User("", "", phoneNumber, "", password, Gender.None, userDomainService);
         }
         public void AddAddress(UserAddress address)
         {
@@ -62,16 +63,25 @@ namespace Shop.Domain.UserAgg
 
         }
 
-        public void EditAddress(UserAddress address)
+        public void SetAvatar(string imageName)
         {
-            var oldAddress = Addresses.FirstOrDefault(f => f.UserId == address.UserId);
+            if (string.IsNullOrWhiteSpace(imageName))
+                imageName = "avatar.png";
+
+            AvatarName = imageName;
+        }
+
+        public void EditAddress(UserAddress address, long addressId)
+        {
+            var oldAddress = Addresses.FirstOrDefault(f => f.UserId == addressId);
             if (oldAddress == null)
             {
                 throw new NullOrEmptyDomainDataException("Address Not Found");
             }
+            oldAddress.Edit(address.FirstName, address.LastName, address.Shire, address.City, address.PostalCode
+                , address.PostalAddress, address.PhoneNumber, address.NationalCode);
 
-            Addresses.Remove(oldAddress);
-            Addresses.Add(address);
+
 
         }
 
@@ -86,7 +96,7 @@ namespace Shop.Domain.UserAgg
             Roles.AddRange(roles);
         }
 
-        public void Guard(string phoneNumber, string email, IDomainUserService domainUserService)
+        public void Guard(string phoneNumber, string email, IUserDomainService userDomainService)
         {
             NullOrEmptyDomainDataException.CheckString(phoneNumber, nameof(phoneNumber));
             NullOrEmptyDomainDataException.CheckString(Email, nameof(Email));
@@ -103,14 +113,14 @@ namespace Shop.Domain.UserAgg
 
             if (phoneNumber != PhoneNumber)
             {
-                if (domainUserService.PhoneNumberIsExist(phoneNumber))
+                if (userDomainService.PhoneNumberIsExist(phoneNumber))
                 {
                     throw new InvalidDomainDataException("The phone number is duplicated");
                 }
             }
             if (email != Email)
             {
-                if (domainUserService.IsEmailExist(email))
+                if (userDomainService.IsEmailExist(email))
                 {
                     throw new InvalidDomainDataException("The phone number is duplicated");
                 }
