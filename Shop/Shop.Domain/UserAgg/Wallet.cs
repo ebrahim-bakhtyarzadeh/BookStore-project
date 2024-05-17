@@ -18,7 +18,7 @@ public class Wallet : BaseEntity
         }
         Type = type;
     }
-    //public long UserId { get; private set; }
+    public long UserId { get; private set; }
     public int Price { get; private set; }
     public string Description { get; private set; }
     public bool IsFinally { get; private set; }
