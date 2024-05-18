@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Shop.Domain.CategoryAgg;
 using Shop.Domain.CommentAgg;
 using Shop.Domain.OrderAgg.Repository;
@@ -7,6 +8,8 @@ using Shop.Domain.RoleAgg;
 using Shop.Domain.SellerAgg;
 using Shop.Domain.SiteEntities.Repositories;
 using Shop.Domain.UserAgg.Repository;
+using Shop.Infrastructure.Persistent.Dapper;
+using Shop.Infrastructure.Persistent.Ef;
 using Shop.Infrastructure.Persistent.Ef.CategoryAgg;
 using Shop.Infrastructure.Persistent.Ef.CommentAgg;
 using Shop.Infrastructure.Persistent.Ef.OrderAgg;
@@ -20,7 +23,7 @@ namespace Shop.Infrastructure;
 
 public static class InfrastructureBootstrapper
 {
-    public static void Init(this IServiceCollection services)
+    public static void Init(this IServiceCollection services, string connectionString)
     {
         services.AddTransient<ICategoryRepository, CategoryRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
@@ -31,6 +34,15 @@ public static class InfrastructureBootstrapper
         services.AddTransient<ISliderRepository, SliderRepository>();
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<ICommentRepository, CommentRepository>();
+
+
+
+        services.AddTransient(_ => new DapperContext(connectionString));
+
+        services.AddDbContext<ShopContext>(option =>
+        {
+            option.UseSqlServer(connectionString);
+        });
 
     }
 }

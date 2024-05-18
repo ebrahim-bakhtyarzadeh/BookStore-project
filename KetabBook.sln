@@ -19,7 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AFEA94
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Domain", "Common\Common.Domain\Common.Domain.csproj", "{73443662-DCEB-4F3B-B0C4-0BA37F83E604}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Application", "Common\Common.Application\Common.Application.csproj", "{E172A898-7E87-479D-9E8A-C2D572F222E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Application", "Common\Common.Application\Common.Application.csproj", "{E172A898-7E87-479D-9E8A-C2D572F222E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Query", "Common\Common.Query\Common.Query.csproj", "{7C7F17E6-1020-45FE-B7E5-1868AB957CB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{E172A898-7E87-479D-9E8A-C2D572F222E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E172A898-7E87-479D-9E8A-C2D572F222E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E172A898-7E87-479D-9E8A-C2D572F222E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C7F17E6-1020-45FE-B7E5-1868AB957CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C7F17E6-1020-45FE-B7E5-1868AB957CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C7F17E6-1020-45FE-B7E5-1868AB957CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C7F17E6-1020-45FE-B7E5-1868AB957CB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{50D6F81E-04AD-4E78-9F91-31672959BFFA} = {F11A8446-FD9E-413E-A2C7-7E665F07B884}
 		{73443662-DCEB-4F3B-B0C4-0BA37F83E604} = {AFEA9465-064C-4603-8A2B-14DAD4D6FA59}
 		{E172A898-7E87-479D-9E8A-C2D572F222E9} = {AFEA9465-064C-4603-8A2B-14DAD4D6FA59}
+		{7C7F17E6-1020-45FE-B7E5-1868AB957CB1} = {AFEA9465-064C-4603-8A2B-14DAD4D6FA59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F3E6B9A3-03C9-4183-897C-41EE2E457FC8}
