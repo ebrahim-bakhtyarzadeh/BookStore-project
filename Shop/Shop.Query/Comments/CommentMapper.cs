@@ -5,7 +5,7 @@ namespace Shop.Query.Comments
 {
     internal static class CommentMapper
     {
-        public static CommentDto? MapComment(this Comment comment)
+        public static CommentDto? MapComment(this Comment? comment)
         {
             if (comment == null)
             {

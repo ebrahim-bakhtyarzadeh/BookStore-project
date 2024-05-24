@@ -40,8 +40,10 @@
     }
 
     public class BaseFilter<TData, TParam> : BaseFilter
+        where TParam : BaseFilterParam
+        where TData : BaseDTO
     {
-        public List<TData> Data { get; set; }
+        public List<TData?> Data { get; set; }
         public TParam FilterParams { get; set; }
 
 

@@ -7,13 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Comments\GetByFilter\" />
     <Folder Include="Users\" />
     <Folder Include="SiteEntities\" />
     <Folder Include="Sellers\" />
     <Folder Include="Roles\" />
     <Folder Include="Products\" />
-    <Folder Include="Orders\" />
   </ItemGroup>
 
   <ItemGroup>
