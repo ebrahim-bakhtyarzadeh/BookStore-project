@@ -7,6 +7,10 @@ namespace Shop.Domain.UserAgg
 {
     public class User : AggregateRoot
     {
+        private User()
+        {
+
+        }
         public User(string firstName, string lastName, string phoneNumber, string email, string password, Gender gender, IUserDomainService userDomainService)
         {
             Guard(phoneNumber, email, userDomainService);

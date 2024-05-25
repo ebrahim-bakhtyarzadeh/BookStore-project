@@ -13,7 +13,7 @@ namespace Shop.Domain.OrderAgg
         public Order(long userId)
         {
             UserId = userId;
-            Status = OrderStatus.Pennding;
+            Status = OrderStatus.Pending;
             Items = new List<OrderItem>();
         }
         public long UserId { get; private set; }
@@ -107,7 +107,7 @@ namespace Shop.Domain.OrderAgg
 
         public void ChangeOrderGuard()
         {
-            if (Status != OrderStatus.Pennding)
+            if (Status != OrderStatus.Pending)
             {
                 throw new InvalidDomainDataException("It is not possible to edit this product");
             }

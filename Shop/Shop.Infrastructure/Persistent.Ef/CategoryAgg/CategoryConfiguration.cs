@@ -4,7 +4,7 @@ using Shop.Domain.CategoryAgg;
 
 namespace Shop.Infrastructure.Persistent.Ef.CategoryAgg
 {
-    internal class CategoryConfiguration
+    internal class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {

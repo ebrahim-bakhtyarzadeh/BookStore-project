@@ -21,19 +21,17 @@ namespace Shop.Query.Orders.DTOs
     {
         public long OrderId { get; set; }
         public long InventoryId { get; set; }
-        public ProductOrderItem Product { get; set; }
+
         public string ShopName { get; set; }
         public int Count { get; set; }
         public int Price { get; set; }
         public int TotalPrice => Price * Count;
+        public string ProductTitle { get; set; }
+        public string ProductSlug { get; private set; }
+        public string ProductImageName { get; set; }
     }
 
-    public class ProductOrderItem
-    {
-        public string ProductTitle { get; set; }
-        public string Slug { get; private set; }
-        public string ImageName { get; set; }
-    }
+
     public class OrderFilterData : BaseDTO
     {
         public long UserId { get; set; }

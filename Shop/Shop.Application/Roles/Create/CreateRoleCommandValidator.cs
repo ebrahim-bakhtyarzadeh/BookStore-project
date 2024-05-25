@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Shop.Application.Roles.Create;
 
-internal class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
+public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
 {
     public CreateRoleCommandValidator()
     {

@@ -31,7 +31,6 @@ namespace Shop.Infrastructure._Utilities
         {
             _context.Set<TEntity>().Add(entity);
         }
-
         public async Task AddRange(ICollection<TEntity> entities)
         {
             await _context.Set<TEntity>().AddRangeAsync(entities);

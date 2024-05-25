@@ -41,6 +41,7 @@ namespace Shop.Infrastructure.Persistent.Ef
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ShopContext).Assembly);
+
             base.OnModelCreating(modelBuilder);
         }
     }
