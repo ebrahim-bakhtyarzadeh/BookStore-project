@@ -26,5 +26,5 @@ public class GetProductBySlugQueryHandler : IQueryHandler<GetProductBySlugQuery,
         }
         return model;
     }
-}
+
 }
