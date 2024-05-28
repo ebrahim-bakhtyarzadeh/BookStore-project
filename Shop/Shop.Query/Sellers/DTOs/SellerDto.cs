@@ -12,7 +12,7 @@ namespace Shop.Query.Sellers.DTOs
         public SellerStatus Status { get; set; }
     }
 
-    public class SellerFilterResutl : BaseFilter<SellerDto, SellerFilterParams>
+    public class SellerFilterResult : BaseFilter<SellerDto, SellerFilterParams>
     {
 
     }

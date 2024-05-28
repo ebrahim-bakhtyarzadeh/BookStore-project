@@ -67,56 +67,39 @@ namespace Shop.Query.Products
 
         public static async Task SetCategories(this ProductDto product, ShopContext _context)
         {
-            var category = await _context.Categories
-                .Where(c => c.Id == product.Category.Id)
+            var categories = await _context.Categories
+                .Where(r => r.Id == product.Category.Id || r.Id == product.SubCategory.Id)
                 .Select(s => new ProductCategoryDto()
                 {
                     Id = s.Id,
                     Slug = s.Slug,
-                    Title = s.Title,
-                    SeoData = s.SeoData,
                     ParentId = s.ParentId,
-                })
-                .FirstOrDefaultAsync();
-            if (product.SecondarySubCategory != null)
-            {
-
-                var subCategory = await _context.Categories.Where(c => c.Id == product.SubCategory.Id)
-                    .Select(s => new ProductCategoryDto()
-                    {
-                        Id = s.Id,
-                        Slug = s.Slug,
-                        Title = s.Title,
-                        SeoData = s.SeoData,
-                        ParentId = s.ParentId,
-                    })
-                    .FirstOrDefaultAsync(c => c.Id == product.SecondarySubCategory.Id);
-                if (subCategory != null)
-                    product.SubCategory = subCategory;
-            }
-
+                    SeoData = s.SeoData,
+                    Title = s.Title
+                }).ToListAsync();
 
             if (product.SecondarySubCategory != null)
             {
                 var secondarySubCategory = await _context.Categories
-                    .Where(c => c.Id == product.Category.Id)
+                    .Where(f => f.Id == product.SecondarySubCategory.Id)
                     .Select(s => new ProductCategoryDto()
                     {
                         Id = s.Id,
                         Slug = s.Slug,
-                        Title = s.Title,
-                        SeoData = s.SeoData,
                         ParentId = s.ParentId,
+                        SeoData = s.SeoData,
+                        Title = s.Title
                     })
-                    .FirstOrDefaultAsync(c => c.Id == product.SecondarySubCategory.Id);
+                    .FirstOrDefaultAsync();
+
                 if (secondarySubCategory != null)
                     product.SecondarySubCategory = secondarySubCategory;
             }
 
 
 
-            if (category != null)
-                product.Category = category;
+            product.Category = categories.First(r => r.Id == product.Category.Id);
+            product.SubCategory = categories.First(r => r.Id == product.SubCategory.Id);
 
 
 

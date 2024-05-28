@@ -6,7 +6,7 @@ using Shop.Domain.UserAgg.Repository;
 
 namespace Shop.Application.Users.EditAddress
 {
-    internal class EditUserAddressCommand : IBaseCommand
+    public class EditUserAddressCommand : IBaseCommand
     {
         public long Id { get; private set; }
         public long UserId { get; private set; }

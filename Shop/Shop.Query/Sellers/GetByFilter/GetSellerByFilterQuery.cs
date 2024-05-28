@@ -5,13 +5,13 @@ using Shop.Query.Sellers.DTOs;
 
 namespace Shop.Query.Sellers.GetByFilter
 {
-    public class GetSellerByFilterQuery : QueryFilter<SellerFilterResutl, SellerFilterParams?>
+    public class GetSellerByFilterQuery : QueryFilter<SellerFilterResult, SellerFilterParams?>
     {
         public GetSellerByFilterQuery(SellerFilterParams filterParams) : base(filterParams)
         {
         }
     }
-    public class GetSellerByFilterQueryHandler : IQueryHandler<GetSellerByFilterQuery, SellerFilterResutl?>
+    public class GetSellerByFilterQueryHandler : IQueryHandler<GetSellerByFilterQuery, SellerFilterResult?>
     {
         private readonly ShopContext _context;
 
@@ -19,7 +19,7 @@ namespace Shop.Query.Sellers.GetByFilter
         {
             _context = context;
         }
-        public async Task<SellerFilterResutl?> Handle(GetSellerByFilterQuery request, CancellationToken cancellationToken)
+        public async Task<SellerFilterResult?> Handle(GetSellerByFilterQuery request, CancellationToken cancellationToken)
         {
             var @params = request.FilterParams;
             var result = _context.Seller.OrderByDescending(d => d.Id).AsQueryable();
@@ -32,7 +32,7 @@ namespace Shop.Query.Sellers.GetByFilter
 
             var skip = (@params.PageId - 1) * @params.Take;
 
-            var sellerResult = new SellerFilterResutl()
+            var sellerResult = new SellerFilterResult()
             {
                 FilterParams = @params,
                 Data = await result.Skip(skip).Take(@params.Take)
