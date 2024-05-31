@@ -16,6 +16,7 @@ public class Category : AggregateRoot
 
     private Category()
     {
+        Childs = new List<Category>();
 
     }
     public Category(string title, string slug, SeoData seoData, ICategoryDomainService categoryService)
@@ -25,6 +26,7 @@ public class Category : AggregateRoot
         Title = title;
         Slug = slug;
         SeoData = seoData;
+        Childs = new List<Category>();
     }
 
     public void Edit(string title, string slug, SeoData seoData, ICategoryDomainService categoryService)

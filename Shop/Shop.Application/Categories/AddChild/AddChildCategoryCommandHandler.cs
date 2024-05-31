@@ -10,9 +10,10 @@ public class AddChildCategoryCommandHandler : IBaseCommandHandler<AddChildCatego
     private readonly ICategoryDomainService _domainService;
 
 
-    public AddChildCategoryCommandHandler(ICategoryRepository repository, ICategoryDomainService _domainService)
+    public AddChildCategoryCommandHandler(ICategoryRepository repository, ICategoryDomainService domainService)
     {
         _repository = repository;
+        _domainService = domainService;
     }
     public async Task<OperationResult> Handle(AddChildCategoryCommand request, CancellationToken cancellationToken)
     {

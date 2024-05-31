@@ -39,13 +39,13 @@ internal static class CategoryMapper
         return CategoryDtoList;
     }
 
-    public static List<ChildCategoryDto> MapChildren(this List<Category> children)
+    public static List<ChildCategoryDto>? MapChildren(this List<Category>? children)
     {
         var model = new List<ChildCategoryDto>();
-        //if (children == null)
-        //{
-        //    return model;
-        //}
+        if (children == null)
+        {
+            return model;
+        }
         children.ForEach(c =>
         {
             model.Add(new ChildCategoryDto()
@@ -67,13 +67,13 @@ internal static class CategoryMapper
 
 
 
-    private static List<SecondaryChildCategoryDto> MapSecondaryChildren(this List<Category> children)
+    private static List<SecondaryChildCategoryDto>? MapSecondaryChildren(this List<Category>? children)
     {
         var model = new List<SecondaryChildCategoryDto>();
-        //if (children == null)
-        //{
-        //    return model;
-        //}
+        if (children == null)
+        {
+            return model;
+        }
         children.ForEach(c =>
         {
             model.Add(new SecondaryChildCategoryDto()

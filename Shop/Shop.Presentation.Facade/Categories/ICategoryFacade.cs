@@ -12,11 +12,12 @@ public interface ICategoryFacade
     Task<OperationResult> AddChild(AddChildCategoryCommand command);
     Task<OperationResult> Edit(EditCategoryCommand command);
     Task<OperationResult> Create(CreateCategoryCommand command);
+    Task<OperationResult> Remove(long id);
 
 
     //Queries
 
-    Task<CategoryDto> GetById(int id);
+    Task<CategoryDto> GetCategoryById(long id);
     Task<List<ChildCategoryDto>> GetAllCategoriesByParentId(long parentId);
     Task<List<CategoryDto>> GetAllCategories();
 

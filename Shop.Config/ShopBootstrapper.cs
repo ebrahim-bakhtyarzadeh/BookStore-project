@@ -40,7 +40,7 @@ namespace Shop.Config
             services.AddTransient<ICategoryDomainService, CategoryDomainService>();
             services.AddTransient<ISellerDomainService, SellerDomainService>();
             services.AddTransient<ICommentRepository, CommentRepository>();
-
+            services.AddTransient<ICategoryDomainService, CategoryDomainService>();
 
 
 

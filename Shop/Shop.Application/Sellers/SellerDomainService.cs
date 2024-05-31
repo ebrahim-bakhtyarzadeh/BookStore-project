@@ -5,14 +5,23 @@ namespace Shop.Application.Sellers
 {
     public class SellerDomainService : ISellerDomainService
     {
+        private readonly ISellerRepository _repository;
+
+        public SellerDomainService(ISellerRepository repository)
+        {
+            _repository = repository;
+        }
+
+
         public bool CheckSellerIsExist(Seller seller)
         {
-            throw new NotImplementedException();
+            return _repository.Exists(s => s.NationalCode == seller.NationalCode || s.Id == seller.Id);
         }
 
         public bool NationalCodeIsExist(string nationalCode)
         {
-            throw new NotImplementedException();
+            return _repository.Exists(s => s.NationalCode == nationalCode);
+
         }
     }
 }
