@@ -20,7 +20,7 @@ internal class CategoryFacade : ICategoryFacade
         _mediator = mediator;
     }
 
-    public async Task<OperationResult> AddChild(AddChildCategoryCommand command)
+    public async Task<OperationResult<long>> AddChild(AddChildCategoryCommand command)
     {
         return await _mediator.Send(command);
     }
@@ -31,7 +31,7 @@ internal class CategoryFacade : ICategoryFacade
 
     }
 
-    public async Task<OperationResult> Create(CreateCategoryCommand command)
+    public async Task<OperationResult<long>> Create(CreateCategoryCommand command)
     {
         return await _mediator.Send(command);
     }

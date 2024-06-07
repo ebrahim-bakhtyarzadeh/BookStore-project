@@ -4,7 +4,7 @@ using Shop.Domain.CategoryAgg.Services;
 
 namespace Shop.Application.Categories.AddChild;
 
-public class AddChildCategoryCommandHandler : IBaseCommandHandler<AddChildCategoryCommand>
+public class AddChildCategoryCommandHandler : IBaseCommandHandler<AddChildCategoryCommand, long>
 {
     private readonly ICategoryRepository _repository;
     private readonly ICategoryDomainService _domainService;
@@ -15,16 +15,16 @@ public class AddChildCategoryCommandHandler : IBaseCommandHandler<AddChildCatego
         _repository = repository;
         _domainService = domainService;
     }
-    public async Task<OperationResult> Handle(AddChildCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<long>> Handle(AddChildCategoryCommand request, CancellationToken cancellationToken)
     {
         var parentCategory = await _repository.GetTracking(request.parentId);
         if (parentCategory == null)
         {
-            return OperationResult.NotFound();
+            return OperationResult<long>.NotFound();
         }
         parentCategory.AddChild(request.title, request.slug, request.seoData, _domainService);
         _repository.Update(parentCategory);
         await _repository.Save();
-        return OperationResult.Success();
+        return OperationResult<long>.Success(parentCategory.Id);
     }
 }
