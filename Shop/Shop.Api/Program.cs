@@ -1,6 +1,7 @@
 using Common.Application;
 using Common.Application.FileUtil.Interfaces;
 using Common.Application.FileUtil.Services;
+using Common.AspNetCore.Middlewares;
 using Shop.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,12 +26,11 @@ builder.Services.AddTransient<IFileService, FileService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 
 
@@ -40,7 +40,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseApiCustomExceptionHandler();
 app.MapControllers();
 
 app.Run();
