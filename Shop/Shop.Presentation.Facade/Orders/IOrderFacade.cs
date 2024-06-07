@@ -1,5 +1,6 @@
 ﻿using Common.Application;
 using Shop.Application.Orders.AddItem;
+using Shop.Application.Orders.Checkout;
 using Shop.Application.Orders.DecreaseItemCount;
 using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Application.Orders.RemoveItem;
@@ -7,11 +8,11 @@ using Shop.Query.Orders.DTOs;
 
 namespace Shop.Presentation.Facade.Orders;
 
-internal interface IOrderFacade
+public interface IOrderFacade
 {
     //command
-    Task<OperationResult> AddItem(AddOrderItemCommand command);
-    Task<OperationResult> CheckoutOrder(AddOrderItemCommand command);
+    Task<OperationResult> AddOrderItem(AddOrderItemCommand command);
+    Task<OperationResult> CheckoutOrder(CheckoutOrderCommand command);
     Task<OperationResult> DecreaseOrderItemCount(DecreaseOrderItemCountCommand command);
     Task<OperationResult> IncreaseOrderItemCount(IncreaseOrderItemCountCommand command);
     Task<OperationResult> RemoveItem(RemoveOrderItemCommand command);
@@ -20,7 +21,7 @@ internal interface IOrderFacade
     //queries
 
     Task<OrderFilterResult> GetOrdersByFilter(OrderFilterParams param);
-    Task<OrderDto> GetOrderById(int id);
+    Task<OrderDto> GetOrderById(long id);
 
 
 

@@ -34,13 +34,13 @@ internal class CommentFacade : ICommentFacade
         return await _mediator.Send(command);
     }
 
-    public async Task<CommentDto?> GetById(int id)
+    public async Task<CommentDto?> GetCommentById(long id)
     {
         return await _mediator.Send(new GetCommentById(id));
 
     }
 
-    public async Task<CommentFilterResult> GetByFilter(CommentFilterParams Filter)
+    public async Task<CommentFilterResult> GetCommentByFilter(CommentFilterParams Filter)
     {
         return await _mediator.Send(new GetCommentByFilterQuery(Filter));
 

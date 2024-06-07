@@ -6,7 +6,7 @@ using Shop.Query.Comments.DTOs;
 
 namespace Shop.Presentation.Facade.Comments;
 
-internal interface ICommentFacade
+public interface ICommentFacade
 {
     //command
     Task<OperationResult> ChangeStatus(ChangeCommentStatusCommand command);
@@ -15,6 +15,6 @@ internal interface ICommentFacade
 
     //Queries
 
-    Task<CommentDto?> GetById(int id);
-    Task<CommentFilterResult> GetByFilter(CommentFilterParams Filter);
+    Task<CommentDto?> GetCommentById(long id);
+    Task<CommentFilterResult> GetCommentByFilter(CommentFilterParams Filter);
 }

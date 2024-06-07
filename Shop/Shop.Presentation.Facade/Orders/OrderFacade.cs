@@ -1,6 +1,7 @@
 ﻿using Common.Application;
 using MediatR;
 using Shop.Application.Orders.AddItem;
+using Shop.Application.Orders.Checkout;
 using Shop.Application.Orders.DecreaseItemCount;
 using Shop.Application.Orders.IncreaseItemCount;
 using Shop.Application.Orders.RemoveItem;
@@ -19,12 +20,12 @@ internal class OrderFacade : IOrderFacade
         _mediator = mediator;
     }
 
-    public async Task<OperationResult> AddItem(AddOrderItemCommand command)
+    public async Task<OperationResult> AddOrderItem(AddOrderItemCommand command)
     {
         return await _mediator.Send(command);
     }
 
-    public async Task<OperationResult> CheckoutOrder(AddOrderItemCommand command)
+    public async Task<OperationResult> CheckoutOrder(CheckoutOrderCommand command)
     {
         return await _mediator.Send(command);
 
@@ -53,7 +54,7 @@ internal class OrderFacade : IOrderFacade
         return await _mediator.Send(new GetOrderByFilterQuery(param));
     }
 
-    public async Task<OrderDto> GetOrderById(int id)
+    public async Task<OrderDto> GetOrderById(long id)
     {
         return await _mediator.Send(new GetOrderByIdQuery(id));
     }
