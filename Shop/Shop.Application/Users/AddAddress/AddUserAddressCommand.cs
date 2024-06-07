@@ -5,7 +5,7 @@ namespace Shop.Application.Users.AddAddress
 {
     public class AddUserAddressCommand : IBaseCommand
     {
-        public long UserId { get; private set; }
+        public long UserId { get; set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string Shire { get; private set; }
