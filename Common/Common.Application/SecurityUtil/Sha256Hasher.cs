@@ -16,5 +16,6 @@ public class Sha256Hasher
     {
         var hash = Hash(rawText);
         return hashText == hash;
+
     }
 }

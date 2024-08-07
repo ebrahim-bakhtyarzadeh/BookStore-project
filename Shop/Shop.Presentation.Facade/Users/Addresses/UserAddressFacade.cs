@@ -9,7 +9,7 @@ using Shop.Query.Users.Addresses.GetList;
 
 namespace Shop.Presentation.Facade.Users.Addresses
 {
-    internal class UserAddressFacade : IUserAddressFacade
+    public class UserAddressFacade : IUserAddressFacade
     {
         private readonly IMediator _mediator;
 

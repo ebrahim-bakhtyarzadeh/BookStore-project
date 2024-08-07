@@ -54,7 +54,7 @@ namespace Shop.Infrastructure._Utilities
 
         public TEntity? Get(long id)
         {
-            return _context.Set<TEntity>().FirstOrDefault(t => t.Id.Equals(id)); ;
+            return _context.Set<TEntity>().FirstOrDefault(t => t.Id.Equals(id));
         }
     }
 }

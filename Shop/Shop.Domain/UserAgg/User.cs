@@ -21,13 +21,14 @@ namespace Shop.Domain.UserAgg
             Email = email;
             Password = password;
             Gender = gender;
-
+            IsActive = true;
         }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public bool IsActive { get; set; }
         public Gender Gender { get; private set; }
         public string AvatarName { get; private set; }
         public List<UserRole> Roles { get; private set; }
@@ -109,11 +110,10 @@ namespace Shop.Domain.UserAgg
             {
                 throw new InvalidDomainDataException("phone number is not Valid");
             }
+            if (!string.IsNullOrWhiteSpace(email))
+                if (email.IsValidEmail() == false)
+                    throw new InvalidDomainDataException("email is not valid");
 
-            if (email.IsValidEmail() == false)
-            {
-                throw new InvalidDomainDataException("email is not valid");
-            }
 
             if (phoneNumber != PhoneNumber)
             {
@@ -122,13 +122,11 @@ namespace Shop.Domain.UserAgg
                     throw new InvalidDomainDataException("The phone number is duplicated");
                 }
             }
+
             if (email != Email)
-            {
                 if (userDomainService.IsEmailExist(email))
-                {
                     throw new InvalidDomainDataException("The phone number is duplicated");
-                }
-            }
+
         }
 
     }

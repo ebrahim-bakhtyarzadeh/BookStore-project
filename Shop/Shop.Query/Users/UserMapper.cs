@@ -20,6 +20,7 @@ namespace Shop.Query.Users
                 Gender = user.Gender,
                 FirstName = user.FirstName,
                 Password = user.Password,
+                IsActive = user.IsActive,
                 Roles = user.Roles.Select(s => new UserRoleDto()
                 {
                     RoleId = s.RoleId,

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Net;
 
-namespace Common.AspNetCore.Middlewares;
+namespace AspNetCore.Middlewares;
 
 public static class ApiCustomExceptionHandlerMiddlewareExtensions
 {

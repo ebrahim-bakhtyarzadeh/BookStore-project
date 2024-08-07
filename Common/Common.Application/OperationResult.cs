@@ -37,6 +37,7 @@
                 Message = message
             };
         }
+
     }
     public class OperationResult
     {

@@ -11,7 +11,7 @@ namespace Shop.Api.Controllers;
 
 public class ProductController : ApiController
 {
-    private IProductFacade _productFacade;
+    private readonly IProductFacade _productFacade;
 
     public ProductController(IProductFacade productFacade)
     {
@@ -32,7 +32,7 @@ public class ProductController : ApiController
         return QueryResult(product);
     }
     [HttpGet("{slug}")]
-    public async Task<ApiResult<ProductDto?>> GetProductById(string slug)
+    public async Task<ApiResult<ProductDto?>> GetProductBySlug(string slug)
     {
         var product = await _productFacade.GetProductBySlug(slug);
         return QueryResult(product);
@@ -42,6 +42,7 @@ public class ProductController : ApiController
     public async Task<ApiResult> CreateProduct([FromForm] CreateProductCommand command)
     {
         var result = await _productFacade.CreateProduct(command);
+
         return CommandResult(result);
     }
 
