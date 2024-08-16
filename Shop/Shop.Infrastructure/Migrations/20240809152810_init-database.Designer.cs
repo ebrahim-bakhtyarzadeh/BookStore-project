@@ -12,8 +12,8 @@ using Shop.Infrastructure.Persistent.Ef;
 namespace Shop.Infrastructure.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20240524085608_init-DataBase")]
-    partial class initDataBase
+    [Migration("20240809152810_init-database")]
+    partial class initdatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,7 +126,7 @@ namespace Shop.Infrastructure.Migrations
                         .HasMaxLength(110)
                         .HasColumnType("nvarchar(110)");
 
-                    b.Property<long>("SecondarySubCategoryId")
+                    b.Property<long?>("SecondarySubCategoryId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Slug")
@@ -277,6 +277,9 @@ namespace Shop.Infrastructure.Migrations
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(80)

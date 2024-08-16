@@ -41,7 +41,15 @@ namespace Shop.Infrastructure._Utilities
         }
         public async Task<int> Save()
         {
-            return await _context.SaveChangesAsync();
+            try
+            {
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                var a = e;
+                throw;
+            }
         }
         public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression)
         {

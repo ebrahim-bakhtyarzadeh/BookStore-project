@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Shop.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initDataBase : Migration
+    public partial class initdatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -121,7 +121,7 @@ namespace Shop.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<long>(type: "bigint", nullable: false),
                     SubCategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    SecondarySubCategoryId = table.Column<long>(type: "bigint", nullable: false),
+                    SecondarySubCategoryId = table.Column<long>(type: "bigint", nullable: true),
                     Slug = table.Column<string>(type: "varchar(900)", unicode: false, nullable: false),
                     MetaTitle = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     MetaDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
@@ -194,6 +194,7 @@ namespace Shop.Infrastructure.Migrations
                     PhoneNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     AvatarName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },

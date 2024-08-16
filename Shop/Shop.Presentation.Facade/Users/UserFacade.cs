@@ -1,5 +1,6 @@
 ﻿using Common.Application;
 using MediatR;
+using Shop.Application.Users.AddToken;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.Register;
@@ -12,40 +13,45 @@ namespace Shop.Presentation.Facade.Users;
 
 internal class UserFacade : IUserFacade
 {
-    private readonly IMediator _mediator;
-    public UserFacade(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+	private readonly IMediator _mediator;
+	public UserFacade(IMediator mediator)
+	{
+		_mediator = mediator;
+	}
 
 
-    public async Task<OperationResult> CreateUser(CreateUserCommand command)
-    {
-        return await _mediator.Send(command);
-    }
+	public async Task<OperationResult> CreateUser(CreateUserCommand command)
+	{
+		return await _mediator.Send(command);
+	}
 
-    public async Task<OperationResult> EditUser(EditUserCommand command)
-    {
-        return await _mediator.Send(command);
-    }
+	public async Task<OperationResult> AddToken(AddUserTokenCommand command)
+	{
+		return await _mediator.Send(command);
+	}
 
-    public async Task<UserDto?> GetUserById(long userId)
-    {
-        return await _mediator.Send(new GetUserByIdQuery(userId));
-    }
+	public async Task<OperationResult> EditUser(EditUserCommand command)
+	{
+		return await _mediator.Send(command);
+	}
 
-    public async Task<UserFilterResult> GetUserByFilter(UserFilterParams filterParams)
-    {
-        return await _mediator.Send(new GetUserByFilterQuery(filterParams));
-    }
+	public async Task<UserDto?> GetUserById(long userId)
+	{
+		return await _mediator.Send(new GetUserByIdQuery(userId));
+	}
 
-    public async Task<UserDto?> GetUserByPhoneNumber(string phoneNumber)
-    {
-        return await _mediator.Send(new GetUserByPhoneNumber(phoneNumber));
-    }
+	public async Task<UserFilterResult> GetUserByFilter(UserFilterParams filterParams)
+	{
+		return await _mediator.Send(new GetUserByFilterQuery(filterParams));
+	}
 
-    public async Task<OperationResult> RegisterUser(RegisterUserCommand command)
-    {
-        return await _mediator.Send(command);
-    }
+	public async Task<UserDto?> GetUserByPhoneNumber(string phoneNumber)
+	{
+		return await _mediator.Send(new GetUserByPhoneNumber(phoneNumber));
+	}
+
+	public async Task<OperationResult> RegisterUser(RegisterUserCommand command)
+	{
+		return await _mediator.Send(command);
+	}
 }
