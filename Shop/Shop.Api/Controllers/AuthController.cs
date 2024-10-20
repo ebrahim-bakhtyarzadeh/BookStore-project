@@ -73,6 +73,7 @@ namespace Shop.Api.Controllers
 					}
 				};
 			}
+
 			var command = new RegisterUserCommand(new PhoneNumber(register.PhoneNumber), register.Password);
 			var result = await _userFacade.RegisterUser(command);
 			return CommandResult(result);
@@ -80,7 +81,17 @@ namespace Shop.Api.Controllers
 
 		#endregion
 
+		#region RefreshToken
+		//[HttpPost("RefreshToken")]
+		//public async Task<ApiResult> RefreshToken(string refreshToken)
+		//{
 
+
+		//	return CommandResult(result);
+		//}
+
+
+		#endregion
 
 		private async Task<OperationResult<LoginResultDto?>> AddTokenAndGenerateResult(UserDto user)
 		{
