@@ -1,4 +1,5 @@
-﻿using AspNetCore;
+﻿using AngleSharp.Css.Values;
+using AspNetCore;
 using Common.Application;
 using Common.Application.SecurityUtil;
 using Common.Domain.ValueObjects;
@@ -97,12 +98,20 @@ namespace Shop.Api.Controllers
 		{
 
 			var token = JwtTokenBuilder.BuildToken(user, _configuration);
-			var refreshToken = Guid.NewGuid().ToString();
+			var userDevice = "windows";
+			var header = HttpContext.Response.Headers["user-agent"].ToString();
+            var uaParser = Parser.GetDefault();
+            if (header != null)
+			{
+                var info = uaParser.Parse(HttpContext.Request.Headers["user-agent"]);
+                 userDevice = $"{info.Device.Family} / {info.OS.Family} {info.OS.Major}.{info.OS.Minor} - {info.UA.Family}";
+
+            }
+            var refreshToken = Guid.NewGuid().ToString();
 			var hashJwtToken = Sha256Hasher.Hash(token);
 			var hashJwtRefreshToken = Sha256Hasher.Hash(refreshToken);
-			var uaParser = Parser.GetDefault();
-			var info = uaParser.Parse(HttpContext.Request.Headers["user-agent"]);
-			var userDevice = $"{info.Device.Family} / {info.OS.Family} {info.OS.Major}.{info.OS.Minor} - {info.UA.Family}";
+			
+		
 			var tokenResult = await _userFacade.AddToken(new AddUserTokenCommand(user.Id, hashJwtToken, hashJwtRefreshToken,
 				DateTime.Now.AddDays(7), DateTime.Now.AddDays(8), userDevice));
 
