@@ -4,6 +4,7 @@ using Common.Application;
 using Common.Application.FileUtil.Interfaces;
 using Common.Application.FileUtil.Services;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Infrastructure;
 using Shop.Api.Infrastructure.JwtUtil;
 using Shop.Config;
 
@@ -29,11 +30,12 @@ builder.Services.AddControllers()
 
             return new BadRequestObjectResult(result);
         });
+        option.SuppressModelStateInvalidFilter = true;
     });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.RegisterApiDependency();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -59,6 +61,7 @@ app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
+app.UseCors("ShopApi");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseApiCustomExceptionHandler();

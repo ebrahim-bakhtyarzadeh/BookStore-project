@@ -3,13 +3,17 @@ using AspNetCore;
 using Common.Application;
 using Common.Application.SecurityUtil;
 using Common.Domain.ValueObjects;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.JwtUtil;
 using Shop.Api.ViewModels.Auth;
 using Shop.Application.Users.AddToken;
 using Shop.Application.Users.Register;
+using Shop.Application.Users.RemoveUserToken;
 using Shop.Presentation.Facade.Users;
 using Shop.Query.Users.DTOs;
+using System.Linq.Expressions;
 using UAParser;
 
 namespace Shop.Api.Controllers
@@ -83,16 +87,50 @@ namespace Shop.Api.Controllers
 		#endregion
 
 		#region RefreshToken
-		//[HttpPost("RefreshToken")]
-		//public async Task<ApiResult> RefreshToken(string refreshToken)
-		//{
+		[HttpPost("RefreshToken")]
+		public async Task<ApiResult<LoginResultDto?>> RefreshToken(string refreshToken)
+		{
+			var result =await _userFacade.GetUserTokenByRefreshToken(refreshToken);
 
+			if (result == null)
+				return CommandResult(OperationResult<LoginResultDto>.NotFound());
 
-		//	return CommandResult(result);
-		//}
+			if (result.TokenExpireDate > DateTime.Now)
+                return CommandResult(OperationResult<LoginResultDto>.Error("توکن هنوز منقضی نشده است"));
+
+            if(result.RefreshTokenExpireDate < DateTime.Now)
+                return CommandResult(OperationResult<LoginResultDto>.Error("زمان رفرش توکن به پایان رسیده است"));
+
+			await _userFacade.RemoveToken(new RemoveUserTokenCommand(result.UserId, result.Id));
+
+			var user = await _userFacade.GetUserById(result.UserId);
+			var loginResult = await AddTokenAndGenerateResult(user);
+
+            return CommandResult(loginResult);
+		}
 
 
 		#endregion
+
+		#region Logout
+		[Authorize]
+		[HttpDelete("Logout")]
+		public async Task<ApiResult> Logout()
+		{
+			var token =await HttpContext.GetTokenAsync("access_token");
+			var result = await _userFacade.GetUserTokenByJwtToken(token);
+			if (result == null)
+				return CommandResult(OperationResult.NotFound());
+
+			await _userFacade.RemoveToken(new RemoveUserTokenCommand(result.UserId , result.Id));
+
+			return CommandResult(OperationResult.Success());
+		}
+
+		
+		#endregion
+
+
 
 		private async Task<OperationResult<LoginResultDto?>> AddTokenAndGenerateResult(UserDto user)
 		{

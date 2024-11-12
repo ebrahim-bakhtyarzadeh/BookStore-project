@@ -46,10 +46,10 @@ namespace AspNetCore
             };
         }
 
-        protected ApiResult<TData> QueryResult<TData>(TData result)
+        protected ApiResult<TData?> QueryResult<TData>(TData? result)
         {
 
-            return new ApiResult<TData>()
+            return new ApiResult<TData?>()
             {
                 IsSuccess = true,
                 Data = result,
@@ -60,6 +60,7 @@ namespace AspNetCore
                 }
             };
         }
+
         protected string JoinErrors()
         {
             var errors = new Dictionary<string, List<string>>();

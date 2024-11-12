@@ -1,14 +1,18 @@
 ﻿using AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Security;
 using Shop.Application.Categories.AddChild;
 using Shop.Application.Categories.Create;
 using Shop.Application.Categories.Edit;
+using Shop.Domain.RoleAgg.Enums;
 using Shop.Presentation.Facade.Categories;
 using Shop.Query.Categories.DTOs;
 using System.Net;
 
 namespace Shop.Api.Controllers
 {
+    [PermissionChecker(Permission.Manage_Category)]
     public class CategoryController : ApiController
     {
 
@@ -19,7 +23,7 @@ namespace Shop.Api.Controllers
             _categoryFacade = categoryFacade;
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ApiResult<List<CategoryDto>>> GetCategories()
         {
@@ -27,7 +31,7 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
 
-
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ApiResult<CategoryDto>> GetCategoryById(long id)
         {
@@ -43,8 +47,12 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiResult<long>> AddCategory(CreateCategoryCommand command)
+        public async Task<ApiResult<long>> AddCategory([FromBody]CreateCategoryCommand command)
         {
+            var data = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .SelectMany(x => x.Value.Errors.Select(error => new { Field = x.Key, Error = error.ErrorMessage }))
+                .ToList();
             var result = await _categoryFacade.Create(command);
             var url = Url.Action("GetCategoryById", "Category", new { id = result.Data }, Request.Scheme);
             return CommandResult(result, HttpStatusCode.Created, url);

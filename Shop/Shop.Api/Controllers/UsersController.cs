@@ -1,11 +1,17 @@
 ﻿using AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Security;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
+using Shop.Domain.RoleAgg.Enums;
 using Shop.Presentation.Facade.Users;
 using Shop.Query.Users.DTOs;
 
 namespace Shop.Api.Controllers;
+
+
+
+[PermissionChecker(Permission.Manage_User)]
 
 public class UsersController : ApiController
 {
@@ -17,7 +23,7 @@ public class UsersController : ApiController
     }
 
     [HttpGet]
-    public async Task<ApiResult<UserFilterResult>> GetUsers(UserFilterParams filterParams)
+    public async Task<ApiResult<UserFilterResult>> GetUsers([FromQuery]UserFilterParams filterParams)
     {
         var result = await _userFacade.GetUserByFilter(filterParams);
         return QueryResult(result);

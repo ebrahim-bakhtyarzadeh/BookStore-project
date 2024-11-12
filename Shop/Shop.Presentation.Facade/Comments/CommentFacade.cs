@@ -26,7 +26,6 @@ internal class CommentFacade : ICommentFacade
     public async Task<OperationResult> Edit(EditCommentCommand command)
     {
         return await _mediator.Send(command);
-
     }
 
     public async Task<OperationResult> Create(CreateCommentCommand command)
@@ -37,12 +36,10 @@ internal class CommentFacade : ICommentFacade
     public async Task<CommentDto?> GetCommentById(long id)
     {
         return await _mediator.Send(new GetCommentById(id));
-
     }
 
     public async Task<CommentFilterResult> GetCommentByFilter(CommentFilterParams Filter)
     {
         return await _mediator.Send(new GetCommentByFilterQuery(Filter));
-
     }
 }

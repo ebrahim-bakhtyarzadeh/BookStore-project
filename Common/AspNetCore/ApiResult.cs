@@ -9,7 +9,7 @@
     public class ApiResult<TData>
     {
         public bool IsSuccess { get; set; }
-        public TData Data { get; set; }
+        public TData? Data { get; set; }
         public MetaData MetaData { get; set; }
     }
 

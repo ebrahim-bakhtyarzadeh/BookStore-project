@@ -73,7 +73,15 @@ namespace Shop.Domain.UserAgg
 			Addresses.Remove(oldAddress);
 
 		}
+		public void RemoveToken(long tokenId)
+		{
+		var token =	Tokens.FirstOrDefault(c=>c.Id == tokenId);
 
+			if (token == null)
+				throw new InvalidDomainDataException("invalid token Id");
+
+			Tokens.Remove(token);
+		}
 		public void SetAvatar(string imageName)
 		{
 			if (string.IsNullOrWhiteSpace(imageName))

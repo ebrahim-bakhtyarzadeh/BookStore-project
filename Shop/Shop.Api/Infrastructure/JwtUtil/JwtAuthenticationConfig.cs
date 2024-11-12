@@ -8,6 +8,7 @@ namespace Shop.Api.Infrastructure.JwtUtil
     {
         public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
+            
             services.AddAuthentication(option =>
             {
                 option.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -27,6 +28,18 @@ namespace Shop.Api.Infrastructure.JwtUtil
                     ValidateAudience = true
                 };
                 option.SaveToken = true;
+                option.Events = new JwtBearerEvents()
+                {
+                    OnTokenValidated =async context =>
+                    {
+                        var customValidate = context.HttpContext.RequestServices.GetRequiredService<CustomJwtValidation>();
+                        await customValidate.Validate(context);
+                    },
+                    
+                    
+                    // این ایونت برای زمانی هست که یک در خواست سمت سرورر بیاید
+                    /*,OnMessageReceived*/
+                };
             });
         }
     }
