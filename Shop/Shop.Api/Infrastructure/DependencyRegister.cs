@@ -11,10 +11,11 @@ namespace Shop.Api.Infrastructure
             services.AddCors(options =>
             {
                 options.AddPolicy(name: "ShopApi",
-                    policy =>
+                    builder =>
                     {
-                        policy.AllowAnyOrigin()
-                        .AllowAnyMethod();
+                        builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
                     });
             });
         }
