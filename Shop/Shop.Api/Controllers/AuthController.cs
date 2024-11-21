@@ -78,7 +78,6 @@ namespace Shop.Api.Controllers
 					}
 				};
 			}
-
 			var command = new RegisterUserCommand(new PhoneNumber(register.PhoneNumber), register.Password);
 			var result = await _userFacade.RegisterUser(command);
 			return CommandResult(result);
