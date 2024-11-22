@@ -126,11 +126,11 @@ namespace Shop.Api.Controllers
 			return CommandResult(OperationResult.Success());
 		}
 
-		
+
 		#endregion
 
 
-
+		[NonAction]
 		private async Task<OperationResult<LoginResultDto?>> AddTokenAndGenerateResult(UserDto user)
 		{
 

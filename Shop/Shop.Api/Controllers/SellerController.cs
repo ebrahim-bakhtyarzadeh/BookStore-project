@@ -35,7 +35,6 @@ public class SellerController : ApiController
         return QueryResult(result);
     }
     [Authorize]
-
     [HttpGet("{id}")]
     public async Task<ApiResult<SellerDto?>> GetSellerById(long sellerId)
     {
@@ -50,7 +49,6 @@ public class SellerController : ApiController
         return CommandResult(result);
     }
     [PermissionChecker(Permission.Manage_Seller)]
-
     [HttpPut]
     public async Task<ApiResult> EditSeller(EditSellerCommand command)
     {
@@ -65,7 +63,6 @@ public class SellerController : ApiController
         return CommandResult(result);
     }
     [PermissionChecker(Permission.Edit_Inventory)]
-
     [HttpPut("Inventory")]
     public async Task<ApiResult> EditInventory(EditSellerInventoryCommand command)
     {
@@ -73,7 +70,7 @@ public class SellerController : ApiController
         return CommandResult(result);
     }
 
-    [HttpGet] 
+    [HttpGet("GetBySellerId/{userId}")] 
     public async Task<ApiResult<SellerDto?>> GetSellerByUserId (long userId)
     {
         var result = await _sellerFacade.GetSellerByUserId(userId);
