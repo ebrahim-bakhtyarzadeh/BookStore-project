@@ -17,7 +17,7 @@ public class BannerController : ApiController
 
     public BannerController(IBannerFacade facade)
     {
-        _facade = facade;
+        _facade = facade;                                                                                                 
     }
     [AllowAnonymous]
     [HttpGet]
@@ -33,17 +33,23 @@ public class BannerController : ApiController
         var result = await _facade.GetBannerById(id);
         return QueryResult(result);
     }
-
     [HttpPost]
-    public async Task<ApiResult> Create(CreateBannerCommand command)
+
+    public async Task<ApiResult> Create([FromForm]CreateBannerCommand command)
     {
         var result = await _facade.CreateBanner(command);
         return CommandResult(result);
     }
     [HttpPut]
-    public async Task<ApiResult> Edit(EditBannerCommand command)
+    public async Task<ApiResult> Edit([FromForm]EditBannerCommand command)
     {
         var result = await _facade.EditBanner(command);
+        return CommandResult(result);
+    }
+    [HttpDelete]
+    public async Task<ApiResult> Delete(long Id)
+    {
+        var result = await _facade.DeleteBanner(Id);
         return CommandResult(result);
     }
 }
