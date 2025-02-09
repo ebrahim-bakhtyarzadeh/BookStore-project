@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Api", "Shop\Shop.Api\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Config", "Shop.Config\Shop.Config.csproj", "{3D77FF23-09CC-4BEA-B592-E068171E2CBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore", "Common\AspNetCore\AspNetCore.csproj", "{43FA45D5-1EB7-4A3A-922E-3BC069273155}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore", "Common\AspNetCore\AspNetCore.csproj", "{43FA45D5-1EB7-4A3A-922E-3BC069273155}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
